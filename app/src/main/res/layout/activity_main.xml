@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:id="@+id/frmContenedor"
         android:padding="20sp"
-        android:background="@color/fondo"/>
+        android:background="@color/white"/>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,9 +20,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@color/barra"
+        android:background="@color/white"
         app:menu="@menu/button_menu"
         app:itemIconSize="40dp"
-        app:itemTextColor="@color/miColor"/>
+        app:itemTextColor="@color/icons"
+        app:itemIconTint="@color/icons"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

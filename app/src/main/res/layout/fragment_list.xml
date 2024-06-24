@@ -17,9 +17,13 @@
             android:layout_height="wrap_content"
             android:text="@string/sfrmLista"
             android:textSize="25sp"
-            android:textColor="@color/miColor"
-            android:gravity="center"
-            android:background="@color/barra"/>
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:gravity="center"/>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lstAlumnos"/>
     </LinearLayout>
 
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">appMenuButton</string>
+    <string name="app_name">appMenuButton - Ramirez</string>
     <string name="sfrmHome">Inicio</string>
     <string name="sfrmLista">Lista de Alumnos</string>
     <string name="sfrmDb">Acceso a Datos</string>

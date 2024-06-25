@@ -1,10 +1,12 @@
 package com.example.appmenubutton
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ListView
 
@@ -47,6 +49,16 @@ class ListFragment : Fragment() {
         arrayList.addAll(items)
         adapter = ArrayAdapter(requireContext(), android.R.layout.simple_expandable_list_item_1, arrayList)
         listView.adapter = adapter
+        listView.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
+            var alumno: String = parent.getItemAtPosition(position).toString()
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Lista de Alumnos")
+            builder.setMessage(position.toString() + "::" + alumno)
+            builder.setPositiveButton("OK") { dialog, which ->
+                // Acción cuando el usuario hace clic en el botón OK
+            }
+            builder.show()
+        })
 
         return view
     }

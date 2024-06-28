@@ -1,7 +1,6 @@
 package com.example.appmenubutton
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -27,30 +26,31 @@ class MainActivity : AppCompatActivity() {
     }
     private fun init() {
         bottomNavigationView = findViewById(R.id.btnNavegator)
+
         changeFrame(HomeFragment())
         bottomNavigationView.setOnItemSelectedListener {
-            menuItem ->
-                when(menuItem.itemId) {
-                    R.id.btnHome -> {
-                        changeFrame(HomeFragment())
-                        true
-                    }
-                    R.id.btnLista -> {
-                        changeFrame(ListFragment())
-                        true
-                    }
-                    R.id.btnDb -> {
-                        changeFrame(DbFragment())
-                        true
-                    }
-                    R.id.btnAcerca -> {
-                        changeFrame(AboutFragment())
-                        true
-                    }
-                    else -> {
-                        false
-                    }
+                menuItem ->
+            when(menuItem.itemId) {
+                R.id.btnHome -> {
+                    changeFrame(HomeFragment())
+                    true
                 }
+                R.id.btnLista -> {
+                    changeFrame(ListFragment())
+                    true
+                }
+                R.id.btnDb -> {
+                    changeFrame(DbFragment())
+                    true
+                }
+                R.id.btnAcerca -> {
+                    changeFrame(AboutFragment())
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
         }
     }
     private fun changeFrame(fragment: Fragment) {

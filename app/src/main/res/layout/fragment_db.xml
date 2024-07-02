@@ -20,6 +20,13 @@
             android:textColor="@color/black"
             android:textStyle="bold"
             android:gravity="center"/>
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:text="Test"
+            android:backgroundTint="@color/icons"
+            android:id="@+id/btnTest"/>
     </LinearLayout>
 
 </FrameLayout>

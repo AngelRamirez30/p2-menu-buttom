@@ -1,10 +1,13 @@
 package com.example.appmenubutton
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +37,25 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+
+        val linkedInImage: ImageView = view.findViewById(R.id.imgLinkedIn)
+        val gitHubImage: ImageView = view.findViewById(R.id.imgGitHub)
+        val gitLabImage: ImageView = view.findViewById(R.id.imgGitLab)
+        linkedInImage.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/in/angel-ramirez-78217129b/"))
+            startActivity(intent)
+        }
+        gitHubImage.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/AngelRamirez30"))
+            startActivity(intent)
+        }
+        gitLabImage.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://gitlab.com/angelro30/"))
+            startActivity(intent)
+        }
+
+        return view
     }
 
     companion object {

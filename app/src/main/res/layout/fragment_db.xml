@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".DbFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -10,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="20sp">
+        android:padding="10sp">
 
         <TextView
             android:layout_width="match_parent"
@@ -21,12 +22,106 @@
             android:textStyle="bold"
             android:gravity="center"/>
 
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:text="Test"
-            android:backgroundTint="@color/icons"
-            android:id="@+id/btnTest"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Matricula"
+            android:textSize="18dp"
+            android:layout_marginTop="5dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ingrese la matricula"
+            android:id="@+id/txtMatricula"
+            android:minHeight="48dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre completo"
+            android:textSize="18dp"
+            android:layout_marginTop="5dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Paterno   Materno     Nombres"
+            android:id="@+id/txtNombre"
+            android:minHeight="48dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Domicilio"
+            android:textSize="18dp"
+            android:layout_marginTop="5dp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Calle # Colonia CP"
+            android:id="@+id/txtDomicilio"
+            android:minHeight="48dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Añadir foto"
+            android:textSize="18dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center"/>
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_gravity="center"
+            android:src="@drawable/camara"
+            android:id="@+id/imgProfilePic"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Grado, Licenciatura o Ing."
+            android:id="@+id/txtEspecialidad"
+            android:minHeight="48dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Url Foto"
+            android:textSize="18dp"
+            android:layout_marginTop="12dp"/>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*"
+            android:layout_marginTop="16dp">
+            <TableRow>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Guardar"
+                    android:id="@+id/btnGuardar"
+                    android:backgroundTint="@color/icons"
+                    android:layout_span="2"
+                    android:layout_marginRight="10dp"/>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Buscar"
+                    android:id="@+id/btnBuscar"
+                    android:backgroundTint="@color/icons"
+                    android:layout_span="2"
+                    android:layout_marginLeft="10dp"/>
+            </TableRow>
+            <TableRow>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Borrar"
+                    android:id="@+id/btnBorrar"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@android:color/holo_red_light"
+                    android:layout_span="2"
+                    android:enabled="false"/>
+            </TableRow>
+        </TableLayout>
     </LinearLayout>
 
 </FrameLayout>

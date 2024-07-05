@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import java.util.ArrayList
 
 class dbAlumnos(private val context: Context) {
     private val dbHelper: AlumnosDbHelper = AlumnosDbHelper(context)
@@ -46,22 +47,35 @@ class dbAlumnos(private val context: Context) {
         return db.update(
             DatabaseDefinition.Alumnos.tabla,
             values,
-            "${DatabaseDefinition.Alumnos.id} = $id",
+            "${DatabaseDefinition.Alumnos.id} = ?",
             arrayOf(id.toString())
         )
     }
+
     fun borrarAlumno(id: Int): Int{
         return db.delete(DatabaseDefinition.Alumnos.tabla,"${DatabaseDefinition.Alumnos.id} = ?", arrayOf(id.toString()))
     }
 
-    fun mostrarAlumnos(cursor: Cursor): Alumno{
-        return Alumno().apply {
-            id = cursor.getInt(0)
-            matricula = cursor.getString(1)
-            nombre = cursor.getString(2)
-            domicilio = cursor.getString(3)
-            especialidad = cursor.getString(4)
-            foto = cursor.getString(5)
+    fun mostrarAlumnos(cursor: Cursor): Alumno {
+        return try {
+            Alumno().apply {
+                id = cursor.getInt(cursor.getColumnIndexOrThrow(DatabaseDefinition.Alumnos.id))
+                matricula = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseDefinition.Alumnos.matricula))
+                nombre = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseDefinition.Alumnos.nombre))
+                domicilio = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseDefinition.Alumnos.domicilio))
+                especialidad = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseDefinition.Alumnos.especialidad))
+
+                // Verifica si la columna de foto existe y maneja posibles valores nulos
+                val fotoIndex = cursor.getColumnIndex(DatabaseDefinition.Alumnos.foto)
+                if (fotoIndex != -1 && !cursor.isNull(fotoIndex)) {
+                    foto = cursor.getString(fotoIndex)
+                } else {
+                    foto = ""
+                }
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            Alumno() // Retorna un objeto Alumno vacío en caso de error
         }
     }
 
@@ -78,7 +92,22 @@ class dbAlumnos(private val context: Context) {
         cursor.close()
         return alumno
     }
-    fun leerTodos(): ArrayList<Alumno>{
+    fun getAlumnoByMatricula(matricula: String): Alumno{
+        val db = dbHelper.readableDatabase
+        val cursor = db.query(
+            DatabaseDefinition.Alumnos.tabla,
+            leerRegistro,
+            "${DatabaseDefinition.Alumnos.matricula} = ?",
+            arrayOf(matricula), null, null, null
+        )
+        if (cursor.moveToFirst()){
+            val alumno = mostrarAlumnos(cursor)
+            cursor.close()
+            return alumno
+        }else return Alumno()
+    }
+
+    fun leerTodos(): ArrayList<Alumno> {
         val cursor = db.query(DatabaseDefinition.Alumnos.tabla, leerRegistro, null, null, null, null, null)
         val listaAlumnos = ArrayList<Alumno>()
         cursor.moveToFirst()

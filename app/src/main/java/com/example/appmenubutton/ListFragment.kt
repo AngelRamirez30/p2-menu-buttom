@@ -87,10 +87,17 @@ class ListFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                adapter.filter.filter(newText)
+                // Si el nuevo texto es nulo o vacío, no filtrar
+                if (newText.isNullOrBlank()) {
+                    adapter.filter.filter("")
+                } else {
+                    // Filtrar con el texto que incluye espacios
+                    adapter.filter.filter(newText.trim())
+                }
                 return true
             }
         })
+
         super.onCreateOptionsMenu(menu, inflater) // Call super after inflating
     }
 

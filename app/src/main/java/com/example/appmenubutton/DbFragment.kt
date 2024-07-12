@@ -199,12 +199,20 @@ class DbFragment : Fragment() {
             mostrarMensaje("Faltó información")
         } else {
             val dbHelper = AlumnosDbHelper(requireContext())
+
+            // Obtener la URL de la foto a guardar
+            val fotoUrl = if (imageUri != null) {
+                imageUri.toString()  // Usar la nueva imagen seleccionada
+            } else {
+                lblUrlFoto.text?.toString() ?: foto ?: "Pendiente" // Usar la URL existente si no se seleccionó nueva imagen
+            }
+
             val alumno = Alumno().apply {
                 this.nombre = nombre
                 this.matricula = matricula
                 this.domicilio = domicilio
                 this.especialidad = especialidad
-                this.foto = imageUri?.toString() ?: "Pendiente"
+                this.foto = fotoUrl
             }
 
             val existingAlumno = dbHelper.getAlumnoByMatricula(matricula)
@@ -216,6 +224,10 @@ class DbFragment : Fragment() {
                     val rowsAffected = dbHelper.actualizarAlumno(alumno, existingAlumno.id)
                     if (rowsAffected > 0) {
                         mostrarMensaje("Alumno editado exitosamente")
+                        val matricula = arguments?.getString(ARG_MATRICULA)
+                        if (!matricula.isNullOrEmpty()) {
+                            requireActivity().supportFragmentManager.popBackStack()
+                        }
                     } else {
                         mostrarMensaje("Error al editar el alumno")
                     }
@@ -228,6 +240,8 @@ class DbFragment : Fragment() {
             }
         }
     }
+
+
 
     private fun confirmarEliminarAlumno() {
         val matricula = txtMatricula.text?.toString() ?: ""

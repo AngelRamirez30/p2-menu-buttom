@@ -1,4 +1,5 @@
 package com.example.appmenubutton.database
+import com.example.appmenubutton.R
 
 data class Alumno(
     var id: Int = 0,

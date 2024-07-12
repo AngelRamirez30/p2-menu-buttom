@@ -1,22 +1,14 @@
 package com.example.appmenubutton
 
 import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
+import android.view.*
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
-
 
 class ListFragment : Fragment() {
 
@@ -25,6 +17,8 @@ class ListFragment : Fragment() {
     private lateinit var adapter: ArrayAdapter<String>
     private lateinit var toolbar: Toolbar
     private lateinit var searchView: SearchView
+
+    private var filteredList: ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,15 +43,14 @@ class ListFragment : Fragment() {
 
         // Populate list items
         val items = resources.getStringArray(R.array.alumnos)
-        arrayList = ArrayList()
-        arrayList.addAll(items)
-
-        adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, arrayList)
+        arrayList = ArrayList(items.toList())
+        filteredList.addAll(arrayList) // Initialize filtered list with all items
+        adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, filteredList)
         listView.adapter = adapter
 
         // Handle item click
         listView.setOnItemClickListener { parent, view, position, id ->
-            val alumno: String = parent.getItemAtPosition(position).toString()
+            val alumno: String = filteredList[position]
             showAlertDialog("$position: $alumno")
         }
 
@@ -76,7 +69,6 @@ class ListFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.search_menu, menu) // Inflate your menu items
-
         // Find the search item in your menu
         val searchItem = menu.findItem(R.id.action_search)
         searchView = searchItem?.actionView as SearchView
@@ -87,18 +79,27 @@ class ListFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                // Si el nuevo texto es nulo o vacío, no filtrar
-                if (newText.isNullOrBlank()) {
-                    adapter.filter.filter("")
-                } else {
-                    // Filtrar con el texto que incluye espacios
-                    adapter.filter.filter(newText.trim())
-                }
+                filterList(newText)
                 return true
             }
         })
-
         super.onCreateOptionsMenu(menu, inflater) // Call super after inflating
+    }
+
+    private fun filterList(query: String?) {
+        filteredList.clear()
+        if (query.isNullOrEmpty()) {
+            filteredList.addAll(arrayList)
+        } else {
+            val queryWords = query.lowercase().split(" ")
+            val newFilteredList = arrayList.filter { item ->
+                val itemLower = item.lowercase()
+                queryWords.all { word -> itemLower.contains(word) }
+            }
+            filteredList.addAll(newFilteredList)
+        }
+        adapter.notifyDataSetChanged()
+        listView.visibility = if (filteredList.isEmpty()) View.GONE else View.VISIBLE
     }
 
     companion object {

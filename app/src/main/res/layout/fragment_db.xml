@@ -12,7 +12,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="10sp">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,6 +33,7 @@
             android:layout_height="wrap_content"
             android:hint="Ingrese la matricula"
             android:id="@+id/txtMatricula"
+            android:inputType="number"
             android:minHeight="48dp" />
         <TextView
             android:layout_width="match_parent"
@@ -68,12 +68,17 @@
             android:textSize="18dp"
             android:layout_marginTop="5dp"
             android:gravity="center"/>
-        <ImageView
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgProfilePic"
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:layout_gravity="center"
-            android:src="@drawable/camara"
-            android:id="@+id/imgProfilePic"/>
+            android:layout_marginVertical="8dp"
+            android:scaleType="centerCrop"
+            android:padding="2dp"
+            android:src="@mipmap/profile_default"
+            app:shapeAppearanceOverlay="@style/circle"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -82,6 +87,7 @@
             android:id="@+id/txtEspecialidad"
             android:minHeight="48dp" />
         <TextView
+            android:id="@+id/lblUrlFoto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Url Foto"
@@ -92,14 +98,15 @@
             android:layout_height="wrap_content"
             android:stretchColumns="*"
             android:layout_marginTop="16dp">
-            <TableRow>
+            <TableRow
+                android:layout_gravity="center_vertical">
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Guardar"
                     android:id="@+id/btnGuardar"
                     android:backgroundTint="@color/icons"
-                    android:layout_span="2"
+                    android:layout_span="3"
                     android:layout_marginRight="10dp"/>
                 <Button
                     android:layout_width="match_parent"
@@ -107,20 +114,19 @@
                     android:text="Buscar"
                     android:id="@+id/btnBuscar"
                     android:backgroundTint="@color/icons"
-                    android:layout_span="2"
+                    android:layout_span="3"
                     android:layout_marginLeft="10dp"/>
-            </TableRow>
-            <TableRow>
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Borrar"
+                <ImageView
                     android:id="@+id/btnBorrar"
-                    android:layout_gravity="center"
-                    android:backgroundTint="@android:color/holo_red_light"
-                    android:layout_span="2"
-                    android:enabled="false"/>
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:layout_span="1"
+                    android:layout_marginRight="-18dp"
+                    android:layout_gravity="center_vertical"
+                    android:stateListAnimator="@animator/image_opacity"
+                    android:src="@drawable/delete_icon"/>
             </TableRow>
+
         </TableLayout>
     </LinearLayout>
 
